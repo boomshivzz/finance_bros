@@ -1,6 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-
+import { useEffect, React } from 'react';
+import { BrowserRouter, Routes, Route, useLocation,useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
 import TopFold from './components/TopFold';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -17,7 +18,19 @@ function App() {
 
 function LayoutWithConditionalTopFold() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const showTopFold = pathname === '/';
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user && pathname === '/login') {
+        // User is logged in, redirect to dashboard
+        navigate('/dashboard');
+      }
+    });
+
+    return () => unsubscribe(); // clean up listener
+  }, [navigate, pathname]);
 
   return (
     <>
