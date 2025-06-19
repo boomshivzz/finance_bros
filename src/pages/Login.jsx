@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword,sendPasswordResetEmail } from 'firebase/auth';  
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { useNavigate, Link } from 'react-router-dom';
+import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-react';
 import './Login.css';
 import GoogleLogo from '../assets/google-icon.svg';
 import { setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
@@ -12,13 +13,12 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
+      Inertia.visit('/dashboard');
     } catch (err) {
       alert(err.message);
     }
@@ -28,7 +28,7 @@ export default function Login() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      Inertia.visit('/dashboard');
     } catch (err) {
       alert(err.message);
     }
@@ -80,7 +80,7 @@ export default function Login() {
             Forgot password?
         </p>
         <button className="login-button" onClick={handleLogin}>Login</button>
-        <Link to="/" className="login-link">← Back to Home</Link>
+        <Link href="/" className="login-link">← Back to Home</Link>
       </div>
     </div>
   );

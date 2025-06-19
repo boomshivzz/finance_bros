@@ -1,7 +1,6 @@
 import React from 'react';
 import './TopFold.css';
-import CarLogo from '../assets/car-logo.png'; // your spinning logo
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react';
 
 function TopFold() {
   return (
@@ -11,8 +10,8 @@ function TopFold() {
         <div className="logo-text">Finance<span className="logo-highlight">Bros</span></div>
         </div>
         <div className="nav-links">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">
+          <Link href="/login">Login</Link>
+          <Link href="/signup">
             <button className="signup-btn">Sign Up</button>
           </Link>
         </div>

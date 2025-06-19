@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { useNavigate, Link } from 'react-router-dom';
+import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-react';
 import './Signup.css';
 import GoogleLogo from '../assets/google-icon.svg';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
+      Inertia.visit('/dashboard');
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
         alert('Your account already exists. Try logging in instead.');
@@ -28,7 +28,7 @@ export default function Signup() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate('/dashboard');
+      Inertia.visit('/dashboard');
     } catch (err) {
       alert(err.message);
     }
@@ -55,7 +55,7 @@ export default function Signup() {
           onChange={e => setPassword(e.target.value)}
         />
         <button className="signup-button" onClick={handleSignup}>Sign Up</button>
-        <Link to="/" className="signup-link">← Back to Home</Link>
+        <Link href="/" className="signup-link">← Back to Home</Link>
       </div>
     </div>
   );
