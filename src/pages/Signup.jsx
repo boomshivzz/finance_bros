@@ -55,7 +55,7 @@ export default function Signup() {
           onChange={e => setPassword(e.target.value)}
         />
         <button className="signup-button" onClick={handleSignup}>Sign Up</button>
-        <Link to="/" className="signup-link">← Back to Home</Link>
+        <Link href="/" className="signup-link">← Back to Home</Link>
       </div>
     </div>
   );

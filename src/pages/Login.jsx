@@ -80,7 +80,7 @@ export default function Login() {
             Forgot password?
         </p>
         <button className="login-button" onClick={handleLogin}>Login</button>
-        <Link to="/" className="login-link">← Back to Home</Link>
+        <Link href="/" className="login-link">← Back to Home</Link>
       </div>
     </div>
   );
