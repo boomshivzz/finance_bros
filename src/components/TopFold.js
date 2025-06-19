@@ -1,7 +1,7 @@
 import React from 'react';
 import './TopFold.css';
 import CarLogo from '../assets/car-logo.png'; // your spinning logo
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/inertia-react';
 
 function TopFold() {
   return (
